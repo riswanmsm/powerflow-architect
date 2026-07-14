@@ -24,3 +24,5 @@ Pipfile.lock
 # Project-specific / User-specific configs
 pyrefly.toml
 .agents/
+playwright-profile/
+
