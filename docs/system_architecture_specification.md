@@ -123,35 +123,35 @@ PowerFlow Architect is organized around clean design rings. The dependency direc
 
 The system is decomposed into the following modular packages located in the `src/` directory:
 
-### 9.1 [auth](file:///Users/runedigital/Development/testing/powerflow-architect/src/auth)
+### 9.1 [auth](../src/auth)
 * **Responsibility**: Manages security credentials, token acquisition, and session lifetimes.
 * **Details**: Encapsulates Microsoft Authentication Library (MSAL) workflows. Obtains OAuth2 bearer tokens for Microsoft Graph, SharePoint REST API, and Power Automate Management services.
 
-### 9.2 [sharepoint](file:///Users/runedigital/Development/testing/powerflow-architect/src/sharepoint)
+### 9.2 [sharepoint](../src/sharepoint)
 * **Responsibility**: Interacts with the SharePoint REST API / Microsoft Graph API.
 * **Details**: Retrieves site metadata, lists, list items, site columns, and list schemas. Provides abstract data structures representing lists.
 
-### 9.3 [excel](file:///Users/runedigital/Development/testing/powerflow-architect/src/excel)
+### 9.3 [excel](../src/excel)
 * **Responsibility**: Models and reads/writes Excel workbooks.
 * **Details**: Handles Excel table manipulation, schema matching, row count tracking, and identification of key fields. 
 
-### 9.4 [powerautomate](file:///Users/runedigital/Development/testing/powerflow-architect/src/powerautomate)
+### 9.4 [powerautomate](../src/powerautomate)
 * **Responsibility**: Interacts with Power Automate management endpoints.
 * **Details**: Ingests flow catalogs, retrieves run history, monitors flow states (Started, Stopped), and queries environment configurations.
 
-### 9.5 [generators](file:///Users/runedigital/Development/testing/powerflow-architect/src/generators)
+### 9.5 [generators](../src/generators)
 * **Responsibility**: Core name generation and template application logic.
 * **Details**: Generates JSON and text assets containing expected flows based on schemas. Combines template definitions with list metadata to produce deterministic naming patterns.
 
-### 9.6 [validators](file:///Users/runedigital/Development/testing/powerflow-architect/src/validators)
+### 9.6 [validators](../src/validators)
 * **Responsibility**: Data consistency validation rules.
 * **Details**: Houses the domain rules for validation. Compares records between SharePoint lists and Excel tables, identifies missing records, duplicates, or schema drifts, and calculates data hashes.
 
-### 9.7 [templates](file:///Users/runedigital/Development/testing/powerflow-architect/src/templates)
+### 9.7 [templates](../src/templates)
 * **Responsibility**: Manages workflow schemas and template definitions.
 * **Details**: Stores JSON-based template structures for Power Automate flow definitions, allowing programmatically mapping variables to flow configurations.
 
-### 9.8 [utils](file:///Users/runedigital/Development/testing/powerflow-architect/src/utils)
+### 9.8 [utils](../src/utils)
 * **Responsibility**: System-wide shared utility modules.
 * **Details**: Provides file configuration loaders, custom logging facilities, telemetry adapters, and error formatting helper functions.
 

@@ -129,22 +129,22 @@ PowerFlow Architect is built as a modular CLI and utility library.
 
 ## 9. Components
 
-### 9.1 [auth](file:///Users/runedigital/Development/testing/powerflow-architect/src/auth)
+### 9.1 [auth](../src/auth)
 * **Responsibility**: Authenticates with Entra ID to fetch Graph API tokens. Provides session handlers for SharePoint and Excel interfaces.
 
-### 9.2 [sharepoint](file:///Users/runedigital/Development/testing/powerflow-architect/src/sharepoint)
+### 9.2 [sharepoint](../src/sharepoint)
 * **Responsibility**: Houses logic to download and structure SharePoint list column properties and relationships.
 
-### 9.3 [excel](file:///Users/runedigital/Development/testing/powerflow-architect/src/excel)
+### 9.3 [excel](../src/excel)
 * **Responsibility**: Reads sheet table structures, verifying headers and key identifiers.
 
-### 9.4 [generators](file:///Users/runedigital/Development/testing/powerflow-architect/src/generators)
+### 9.4 [generators](../src/generators)
 * **Responsibility**: Maps column metadata types to Flow JSON properties. Compiles final WDL definition objects.
 
-### 9.5 [validators](file:///Users/runedigital/Development/testing/powerflow-architect/src/validators)
+### 9.5 [validators](../src/validators)
 * **Responsibility**: Validates that generated flow files match Microsoft schema parameters and respect retry policies.
 
-### 9.6 [utils](file:///Users/runedigital/Development/testing/powerflow-architect/src/utils)
+### 9.6 [utils](../src/utils)
 * **Responsibility**: Core logging, YAML configuration parser, and custom mapping cache managers.
 
 ---

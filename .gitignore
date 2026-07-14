@@ -25,4 +25,6 @@ Pipfile.lock
 pyrefly.toml
 .agents/
 playwright-profile/
+Inventory/
+
 
