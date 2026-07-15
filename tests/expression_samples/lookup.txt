@@ -1,0 +1,1 @@
+@items('Apply_to_each_1')?['Project/Value']

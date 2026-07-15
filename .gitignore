@@ -25,6 +25,7 @@ Pipfile.lock
 pyrefly.toml
 .agents/
 playwright-profile/
-Inventory/
-
-
+Inventory/*
+!Inventory/.gitkeep
+output/*
+!output/.gitkeep
