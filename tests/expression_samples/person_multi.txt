@@ -1,0 +1,1 @@
+@join(xpath(xml(json(concat('{"items":{"item":',string(items('Apply_to_each_1')?['AssignedTo']),'}}'))),'//Email/text()'),' | ')

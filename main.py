@@ -12,6 +12,7 @@ from src.sharepoint import (
     Site,
     Exporter
 )
+from src.generator import ExpressionGenerator
 
 def load_config() -> str:
     """Load default site URL from config.yaml if present."""
@@ -150,7 +151,6 @@ def run_inventory(site_url: str):
     print("\nExport:")
     print(os.path.basename(exports["xlsx"]))
     print()
-
 def main():
     parser = argparse.ArgumentParser(description="SharePoint Flow & List Architect CLI")
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -163,11 +163,35 @@ def main():
         help="Target SharePoint site URL (overrides site_url config in config.yaml)"
     )
 
+    # expressions sub-command
+    parser_expressions = subparsers.add_parser("expressions", help="Generate Power Automate expressions from inventory JSON")
+    parser_expressions.add_argument(
+        "--input",
+        type=str,
+        default="Inventory/inventory.json",
+        help="Path to input inventory.json file (default: Inventory/inventory.json)"
+    )
+    parser_expressions.add_argument(
+        "--output-dir",
+        type=str,
+        default="output",
+        help="Path to output directory (default: output)"
+    )
+
     args = parser.parse_args()
 
     if args.command == "inventory":
         site_url = args.site or load_config()
         run_inventory(site_url)
+    elif args.command == "expressions":
+        generator = ExpressionGenerator(input_json_path=args.input, output_dir=args.output_dir)
+        print(f"Generating expressions from {args.input}...")
+        try:
+            generator.generate()
+            print(f"Expressions generated successfully. Outputs saved in '{args.output_dir}/'")
+        except Exception as e:
+            print(f"Error generating expressions: {e}", file=sys.stderr)
+            sys.exit(1)
 
 if __name__ == "__main__":
     main()
