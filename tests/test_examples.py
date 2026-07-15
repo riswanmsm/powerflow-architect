@@ -31,6 +31,7 @@ def test_sample_inventory_json():
             assert "name" in fld
             assert "display_name" in fld
             assert "field_type" in fld
+            assert "NormalizedFieldType" in fld
             assert isinstance(fld["is_required"], bool)
             assert isinstance(fld["is_read_only"], bool)
             assert isinstance(fld["is_hidden"], bool)
@@ -47,6 +48,7 @@ def test_sample_inventory_csv():
         "Field Display Name",
         "Field ID",
         "Field Type",
+        "Normalized Field Type",
         "Is Required",
         "Is Read Only",
         "Is Hidden",
@@ -63,7 +65,7 @@ def test_sample_inventory_csv():
         for row in rows:
             assert len(row) == len(expected_headers)
             # Boolean values should be serialized as string representations of bools
-            assert row[6] in ("True", "False")
             assert row[7] in ("True", "False")
             assert row[8] in ("True", "False")
             assert row[9] in ("True", "False")
+            assert row[10] in ("True", "False")

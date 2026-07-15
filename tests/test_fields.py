@@ -3,6 +3,7 @@ import pytest
 
 from src.sharepoint.client import SharePointClient
 from src.sharepoint.field_service import FieldService
+from src.sharepoint.normalized_types import NormalizedFieldType
 
 def test_get_fields():
     mock_client = MagicMock(spec=SharePointClient)
@@ -41,6 +42,7 @@ def test_get_fields():
     assert fields[0].name == "Title"
     assert fields[0].display_name == "Title"
     assert fields[0].field_type == "Text"
+    assert fields[0].normalized_field_type == NormalizedFieldType.TEXT
     assert fields[0].is_required is True
     assert fields[0].is_read_only is False
     assert fields[0].is_hidden is False
@@ -52,6 +54,7 @@ def test_get_fields():
     assert fields[1].name == "AssignedTo"
     assert fields[1].display_name == "Assigned To"
     assert fields[1].field_type == "PersonMulti"
+    assert fields[1].normalized_field_type == NormalizedFieldType.PERSON_MULTI
     assert fields[1].is_required is False
     assert fields[1].is_read_only is False
     assert fields[1].is_hidden is False

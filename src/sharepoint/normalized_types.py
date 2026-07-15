@@ -1,0 +1,20 @@
+from enum import Enum
+
+class NormalizedFieldType(str, Enum):
+    TEXT = "Text"
+    NUMBER = "Number"
+    DATE = "Date"
+    BOOLEAN = "Boolean"
+    LOOKUP = "Lookup"
+    LOOKUP_MULTI = "LookupMulti"
+    PERSON = "Person"
+    PERSON_MULTI = "PersonMulti"
+    CHOICE = "Choice"
+    CHOICE_MULTI = "ChoiceMulti"
+    MANAGED_METADATA = "ManagedMetadata"
+    MANAGED_METADATA_MULTI = "ManagedMetadataMulti"
+    CALCULATED = "Calculated"
+    HYPERLINK = "Hyperlink"
+    IMAGE = "Image"
+    FILE = "File"
+    UNKNOWN = "Unknown"

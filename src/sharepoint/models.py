@@ -1,12 +1,14 @@
 from dataclasses import dataclass, field
 from typing import Dict, Any, List as TypeList, Optional
+from .normalized_types import NormalizedFieldType
 
 @dataclass
 class Field:
     id: str
     name: str
     display_name: str
-    field_type: str        # e.g., 'Lookup', 'LookupMulti', 'Choice', 'ChoiceMulti', 'Person', 'PersonMulti', 'Managed Metadata', 'Calculated', 'Text', 'Number', etc.
+    field_type: str        # Original/Raw classification string (e.g. 'Lookup', 'DateTime')
+    normalized_field_type: NormalizedFieldType  # Clean standardized Enum type
     is_required: bool
     is_read_only: bool
     is_hidden: bool

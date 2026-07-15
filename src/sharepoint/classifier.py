@@ -1,5 +1,6 @@
 from typing import Dict, Any
 from .models import Field
+from .classification_rules import FieldClassifierRules
 
 # A set of standard default/system SharePoint column names (lowercased)
 SHAREPOINT_SYSTEM_COLUMNS = {
@@ -30,7 +31,8 @@ SHAREPOINT_SYSTEM_COLUMNS = {
 class FieldClassifier:
     """
     Evaluates Microsoft Graph API ColumnDefinition JSON and maps it to
-    a classified Field model with type, required, read-only, hidden, and system flags.
+    a classified Field model with type, required, read-only, hidden, and system flags,
+    while also extracting the standardized NormalizedFieldType.
     """
 
     @staticmethod
@@ -51,7 +53,7 @@ class FieldClassifier:
         name_lower = name.lower()
         is_system = name_lower in SHAREPOINT_SYSTEM_COLUMNS or name_lower.startswith("_")
 
-        # Determine type classification
+        # Determine original type classification
         field_type = "Unknown"
 
         if "lookup" in raw_col:
@@ -91,11 +93,15 @@ class FieldClassifier:
         elif "geolocation" in raw_col:
             field_type = "Geolocation"
 
+        # Determine normalized field type
+        normalized_field_type = FieldClassifierRules.evaluate(raw_col)
+
         return Field(
             id=col_id,
             name=name,
             display_name=display_name,
             field_type=field_type,
+            normalized_field_type=normalized_field_type,
             is_required=is_required,
             is_read_only=is_read_only,
             is_hidden=is_hidden,
