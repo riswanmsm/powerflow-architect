@@ -27,5 +27,7 @@ pyrefly.toml
 playwright-profile/
 Inventory/*
 !Inventory/.gitkeep
+flow_definitions/*
+!flow_definitions/.gitkeep
 output/*
 !output/.gitkeep
