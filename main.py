@@ -14,6 +14,7 @@ from src.sharepoint import (
 )
 from src.generator import ExpressionGenerator
 from src.template_engine import TemplateEngine
+from src.flow_definition import FlowDefinitionEngine, FlowContext
 
 def load_config() -> str:
     """Load default site URL from config.yaml if present."""
@@ -194,6 +195,27 @@ def main():
         help="Path to output directory (default: output)"
     )
 
+    # flows sub-command
+    parser_flows = subparsers.add_parser("flows", help="Generate Power Automate flow definitions from templates")
+    parser_flows.add_argument(
+        "--input",
+        type=str,
+        default="Inventory/inventory.json",
+        help="Path to input inventory.json file (default: Inventory/inventory.json)"
+    )
+    parser_flows.add_argument(
+        "--template",
+        type=str,
+        default="templates/default_flow.json",
+        help="Path to the flow JSON template (default: templates/default_flow.json)"
+    )
+    parser_flows.add_argument(
+        "--output-dir",
+        type=str,
+        default="flow_definitions",
+        help="Path to output directory for flow definitions (default: flow_definitions)"
+    )
+
     args = parser.parse_args()
 
     if args.command == "inventory":
@@ -216,6 +238,15 @@ def main():
             print(f"Templates generated successfully. Outputs saved in '{args.output_dir}/'")
         except Exception as e:
             print(f"Error generating templates: {e}", file=sys.stderr)
+            sys.exit(1)
+    elif args.command == "flows":
+        engine = FlowDefinitionEngine(inventory_path=args.input, template_path=args.template)
+        print(f"Generating flow definitions from {args.input} using template {args.template}...")
+        try:
+            engine.generate_definitions(output_dir=args.output_dir)
+            print(f"Flow definitions generated successfully. Outputs saved in '{args.output_dir}/'")
+        except Exception as e:
+            print(f"Error generating flows: {e}", file=sys.stderr)
             sys.exit(1)
 
 if __name__ == "__main__":

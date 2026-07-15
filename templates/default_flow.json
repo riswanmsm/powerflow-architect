@@ -1,0 +1,41 @@
+{
+  "$schema": "https://schema.cognitivedevops.com/providers/Microsoft.PowerApps/apis/shared_logicflows/schemas/2016-06-01/flowdefinition.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "site_url": {
+      "defaultValue": "${SITE_URL}",
+      "type": "String"
+    }
+  },
+  "triggers": {
+    "${TRIGGER_NAME}": {
+      "type": "ApiConnection",
+      "inputs": {
+        "host": {
+          "connection": {
+            "name": "@parameters('$connections')['shared_sharepointonline']['connectionId']"
+          }
+        },
+        "method": "get",
+        "path": "/datasets/@{encodeURIComponent(parameters('site_url'))}/tables/${LIST_NAME}/onnewitem",
+        "authentication": "@parameters('$authentication')"
+      }
+    }
+  },
+  "actions": {
+    "Add_a_row_into_a_table": {
+      "type": "ApiConnection",
+      "inputs": {
+        "host": {
+          "connection": {
+            "name": "@parameters('$connections')['shared_excelonlinebusiness']['connectionId']"
+          }
+        },
+        "method": "post",
+        "path": "/datasets/default/files/${EXCEL_FILE}/tables/${EXCEL_TABLE}/row",
+        "body": ${VALUE_OBJECT},
+        "authentication": "@parameters('$authentication')"
+      }
+    }
+  }
+}
