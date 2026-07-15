@@ -62,6 +62,7 @@ class Exporter:
                             "name": fld.name,
                             "display_name": fld.display_name,
                             "field_type": fld.field_type,
+                            "NormalizedFieldType": fld.normalized_field_type.value,
                             "is_required": fld.is_required,
                             "is_read_only": fld.is_read_only,
                             "is_hidden": fld.is_hidden,
@@ -85,6 +86,7 @@ class Exporter:
             "Field Display Name",
             "Field ID",
             "Field Type",
+            "Normalized Field Type",
             "Is Required",
             "Is Read Only",
             "Is Hidden",
@@ -104,6 +106,7 @@ class Exporter:
                         fld.display_name,
                         fld.id,
                         fld.field_type,
+                        fld.normalized_field_type.value,
                         str(fld.is_required),
                         str(fld.is_read_only),
                         str(fld.is_hidden),
@@ -225,6 +228,7 @@ class Exporter:
             "Field Display Name",
             "Field ID",
             "Field Type",
+            "Normalized Field Type",
             "Is Required",
             "Is Read Only",
             "Is Hidden",
@@ -249,15 +253,16 @@ class Exporter:
                 ws_details.cell(row=row_idx, column=4, value=fld.display_name)
                 ws_details.cell(row=row_idx, column=5, value=fld.id)
                 ws_details.cell(row=row_idx, column=6, value=fld.field_type)
+                ws_details.cell(row=row_idx, column=7, value=fld.normalized_field_type.value)
                 
                 # Use boolean format directly for easy Excel filtering/formulas
-                ws_details.cell(row=row_idx, column=7, value=fld.is_required)
-                ws_details.cell(row=row_idx, column=8, value=fld.is_read_only)
-                ws_details.cell(row=row_idx, column=9, value=fld.is_hidden)
-                ws_details.cell(row=row_idx, column=10, value=fld.is_system)
+                ws_details.cell(row=row_idx, column=8, value=fld.is_required)
+                ws_details.cell(row=row_idx, column=9, value=fld.is_read_only)
+                ws_details.cell(row=row_idx, column=10, value=fld.is_hidden)
+                ws_details.cell(row=row_idx, column=11, value=fld.is_system)
 
                 # Styling cells
-                for col_idx in range(1, 11):
+                for col_idx in range(1, 12):
                     c = ws_details.cell(row=row_idx, column=col_idx)
                     c.font = font_regular
                     c.border = thin_border
@@ -268,7 +273,7 @@ class Exporter:
                 row_idx += 1
 
         # Enable Auto-filters on Details tab
-        ws_details.auto_filter.ref = f"A1:J{row_idx - 1}"
+        ws_details.auto_filter.ref = f"A1:K{row_idx - 1}"
 
         # Adjust Columns widths for both worksheets
         for ws in [ws_overview, ws_details]:
