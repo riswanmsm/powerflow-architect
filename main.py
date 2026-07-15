@@ -13,6 +13,7 @@ from src.sharepoint import (
     Exporter
 )
 from src.generator import ExpressionGenerator
+from src.template_engine import TemplateEngine
 
 def load_config() -> str:
     """Load default site URL from config.yaml if present."""
@@ -178,6 +179,21 @@ def main():
         help="Path to output directory (default: output)"
     )
 
+    # templates sub-command
+    parser_templates = subparsers.add_parser("templates", help="Generate Excel action templates from inventory JSON")
+    parser_templates.add_argument(
+        "--input",
+        type=str,
+        default="Inventory/inventory.json",
+        help="Path to input inventory.json file (default: Inventory/inventory.json)"
+    )
+    parser_templates.add_argument(
+        "--output-dir",
+        type=str,
+        default="output",
+        help="Path to output directory (default: output)"
+    )
+
     args = parser.parse_args()
 
     if args.command == "inventory":
@@ -191,6 +207,15 @@ def main():
             print(f"Expressions generated successfully. Outputs saved in '{args.output_dir}/'")
         except Exception as e:
             print(f"Error generating expressions: {e}", file=sys.stderr)
+            sys.exit(1)
+    elif args.command == "templates":
+        engine = TemplateEngine(inventory_path=args.input)
+        print(f"Generating templates from {args.input}...")
+        try:
+            engine.generate_outputs(output_dir=args.output_dir)
+            print(f"Templates generated successfully. Outputs saved in '{args.output_dir}/'")
+        except Exception as e:
+            print(f"Error generating templates: {e}", file=sys.stderr)
             sys.exit(1)
 
 if __name__ == "__main__":
