@@ -1,0 +1,466 @@
+{
+  "site_id": "site-contoso-projects-1234",
+  "site_name": "Project Delivery Portal",
+  "web_url": "https://contoso.sharepoint.com/sites/project-delivery",
+  "hostname": "contoso.sharepoint.com",
+  "path": "sites/project-delivery",
+  "lists": [
+    {
+      "list_id": "lst-tasks-111",
+      "list_name": "tasks",
+      "list_display_name": "Tasks",
+      "web_url": "https://contoso.sharepoint.com/sites/project-delivery/Lists/Tasks",
+      "fields_count": 18,
+      "fields": [
+        {
+          "field_id": "fld-101",
+          "name": "ID",
+          "display_name": "ID",
+          "field_type": "Number",
+          "is_required": false,
+          "is_read_only": true,
+          "is_hidden": false,
+          "is_system": true
+        },
+        {
+          "field_id": "fld-102",
+          "name": "Title",
+          "display_name": "Task Name",
+          "field_type": "Text",
+          "is_required": true,
+          "is_read_only": false,
+          "is_hidden": false,
+          "is_system": false
+        },
+        {
+          "field_id": "fld-103",
+          "name": "Description",
+          "display_name": "Description",
+          "field_type": "Text",
+          "is_required": false,
+          "is_read_only": false,
+          "is_hidden": false,
+          "is_system": false
+        },
+        {
+          "field_id": "fld-104",
+          "name": "AssignedTo",
+          "display_name": "Assigned To",
+          "field_type": "PersonMulti",
+          "is_required": false,
+          "is_read_only": false,
+          "is_hidden": false,
+          "is_system": false
+        },
+        {
+          "field_id": "fld-105",
+          "name": "Status",
+          "display_name": "Status",
+          "field_type": "Choice",
+          "is_required": true,
+          "is_read_only": false,
+          "is_hidden": false,
+          "is_system": false
+        },
+        {
+          "field_id": "fld-106",
+          "name": "Priority",
+          "display_name": "Priority",
+          "field_type": "Choice",
+          "is_required": false,
+          "is_read_only": false,
+          "is_hidden": false,
+          "is_system": false
+        },
+        {
+          "field_id": "fld-107",
+          "name": "DueDate",
+          "display_name": "Due Date",
+          "field_type": "DateTime",
+          "is_required": false,
+          "is_read_only": false,
+          "is_hidden": false,
+          "is_system": false
+        },
+        {
+          "field_id": "fld-108",
+          "name": "Project",
+          "display_name": "Related Project",
+          "field_type": "Lookup",
+          "is_required": false,
+          "is_read_only": false,
+          "is_hidden": false,
+          "is_system": false
+        },
+        {
+          "field_id": "fld-109",
+          "name": "EstimatedHours",
+          "display_name": "Estimated Hours",
+          "field_type": "Number",
+          "is_required": false,
+          "is_read_only": false,
+          "is_hidden": false,
+          "is_system": false
+        },
+        {
+          "field_id": "fld-110",
+          "name": "PercentComplete",
+          "display_name": "Percent Complete",
+          "field_type": "Number",
+          "is_required": false,
+          "is_read_only": false,
+          "is_hidden": false,
+          "is_system": false
+        },
+        {
+          "field_id": "fld-111",
+          "name": "IsMilestone",
+          "display_name": "Is Milestone",
+          "field_type": "Boolean",
+          "is_required": false,
+          "is_read_only": false,
+          "is_hidden": false,
+          "is_system": false
+        },
+        {
+          "field_id": "fld-112",
+          "name": "TaskCost",
+          "display_name": "Estimated Cost",
+          "field_type": "Currency",
+          "is_required": false,
+          "is_read_only": false,
+          "is_hidden": false,
+          "is_system": false
+        },
+        {
+          "field_id": "fld-113",
+          "name": "Tags",
+          "display_name": "Metadata Tags",
+          "field_type": "Managed Metadata",
+          "is_required": false,
+          "is_read_only": false,
+          "is_hidden": false,
+          "is_system": false
+        },
+        {
+          "field_id": "fld-114",
+          "name": "TaskSummary",
+          "display_name": "Summary",
+          "field_type": "Calculated",
+          "is_required": false,
+          "is_read_only": true,
+          "is_hidden": false,
+          "is_system": false
+        },
+        {
+          "field_id": "fld-115",
+          "name": "Created",
+          "display_name": "Created",
+          "field_type": "DateTime",
+          "is_required": false,
+          "is_read_only": true,
+          "is_hidden": false,
+          "is_system": true
+        },
+        {
+          "field_id": "fld-116",
+          "name": "Modified",
+          "display_name": "Modified",
+          "field_type": "DateTime",
+          "is_required": false,
+          "is_read_only": true,
+          "is_hidden": false,
+          "is_system": true
+        },
+        {
+          "field_id": "fld-117",
+          "name": "Author",
+          "display_name": "Created By",
+          "field_type": "Person",
+          "is_required": false,
+          "is_read_only": true,
+          "is_hidden": false,
+          "is_system": true
+        },
+        {
+          "field_id": "fld-118",
+          "name": "Editor",
+          "display_name": "Modified By",
+          "field_type": "Person",
+          "is_required": false,
+          "is_read_only": true,
+          "is_hidden": false,
+          "is_system": true
+        }
+      ]
+    },
+    {
+      "list_id": "lst-projects-222",
+      "list_name": "projects",
+      "list_display_name": "Projects",
+      "web_url": "https://contoso.sharepoint.com/sites/project-delivery/Lists/Projects",
+      "fields_count": 15,
+      "fields": [
+        {
+          "field_id": "fld-201",
+          "name": "ID",
+          "display_name": "ID",
+          "field_type": "Number",
+          "is_required": false,
+          "is_read_only": true,
+          "is_hidden": false,
+          "is_system": true
+        },
+        {
+          "field_id": "fld-202",
+          "name": "Title",
+          "display_name": "Project Name",
+          "field_type": "Text",
+          "is_required": true,
+          "is_read_only": false,
+          "is_hidden": false,
+          "is_system": false
+        },
+        {
+          "field_id": "fld-203",
+          "name": "ProjectCode",
+          "display_name": "Project Code",
+          "field_type": "Text",
+          "is_required": true,
+          "is_read_only": false,
+          "is_hidden": false,
+          "is_system": false
+        },
+        {
+          "field_id": "fld-204",
+          "name": "ClientName",
+          "display_name": "Client Name",
+          "field_type": "Text",
+          "is_required": false,
+          "is_read_only": false,
+          "is_hidden": false,
+          "is_system": false
+        },
+        {
+          "field_id": "fld-205",
+          "name": "StartDate",
+          "display_name": "Start Date",
+          "field_type": "DateTime",
+          "is_required": false,
+          "is_read_only": false,
+          "is_hidden": false,
+          "is_system": false
+        },
+        {
+          "field_id": "fld-206",
+          "name": "TargetEndDate",
+          "display_name": "Target End Date",
+          "field_type": "DateTime",
+          "is_required": false,
+          "is_read_only": false,
+          "is_hidden": false,
+          "is_system": false
+        },
+        {
+          "field_id": "fld-207",
+          "name": "ProjectManager",
+          "display_name": "Project Manager",
+          "field_type": "Person",
+          "is_required": true,
+          "is_read_only": false,
+          "is_hidden": false,
+          "is_system": false
+        },
+        {
+          "field_id": "fld-208",
+          "name": "Budget",
+          "display_name": "Budget",
+          "field_type": "Currency",
+          "is_required": false,
+          "is_read_only": false,
+          "is_hidden": false,
+          "is_system": false
+        },
+        {
+          "field_id": "fld-209",
+          "name": "Active",
+          "display_name": "Active",
+          "field_type": "Boolean",
+          "is_required": false,
+          "is_read_only": false,
+          "is_hidden": false,
+          "is_system": false
+        },
+        {
+          "field_id": "fld-210",
+          "name": "ProjectIcon",
+          "display_name": "Project Icon",
+          "field_type": "Thumbnail",
+          "is_required": false,
+          "is_read_only": false,
+          "is_hidden": false,
+          "is_system": false
+        },
+        {
+          "field_id": "fld-211",
+          "name": "OfficeLocation",
+          "display_name": "Office Location",
+          "field_type": "Geolocation",
+          "is_required": false,
+          "is_read_only": false,
+          "is_hidden": false,
+          "is_system": false
+        },
+        {
+          "field_id": "fld-212",
+          "name": "Created",
+          "display_name": "Created",
+          "field_type": "DateTime",
+          "is_required": false,
+          "is_read_only": true,
+          "is_hidden": false,
+          "is_system": true
+        },
+        {
+          "field_id": "fld-213",
+          "name": "Modified",
+          "display_name": "Modified",
+          "field_type": "DateTime",
+          "is_required": false,
+          "is_read_only": true,
+          "is_hidden": false,
+          "is_system": true
+        },
+        {
+          "field_id": "fld-214",
+          "name": "Author",
+          "display_name": "Created By",
+          "field_type": "Person",
+          "is_required": false,
+          "is_read_only": true,
+          "is_hidden": false,
+          "is_system": true
+        },
+        {
+          "field_id": "fld-215",
+          "name": "Editor",
+          "display_name": "Modified By",
+          "field_type": "Person",
+          "is_required": false,
+          "is_read_only": true,
+          "is_hidden": false,
+          "is_system": true
+        }
+      ]
+    },
+    {
+      "list_id": "lst-issues-333",
+      "list_name": "issues",
+      "list_display_name": "Issues",
+      "web_url": "https://contoso.sharepoint.com/sites/project-delivery/Lists/Issues",
+      "fields_count": 10,
+      "fields": [
+        {
+          "field_id": "fld-301",
+          "name": "ID",
+          "display_name": "ID",
+          "field_type": "Number",
+          "is_required": false,
+          "is_read_only": true,
+          "is_hidden": false,
+          "is_system": true
+        },
+        {
+          "field_id": "fld-302",
+          "name": "Title",
+          "display_name": "Issue Title",
+          "field_type": "Text",
+          "is_required": true,
+          "is_read_only": false,
+          "is_hidden": false,
+          "is_system": false
+        },
+        {
+          "field_id": "fld-303",
+          "name": "RelatedTask",
+          "display_name": "Related Task",
+          "field_type": "LookupMulti",
+          "is_required": false,
+          "is_read_only": false,
+          "is_hidden": false,
+          "is_system": false
+        },
+        {
+          "field_id": "fld-304",
+          "name": "Severity",
+          "display_name": "Severity",
+          "field_type": "Choice",
+          "is_required": true,
+          "is_read_only": false,
+          "is_hidden": false,
+          "is_system": false
+        },
+        {
+          "field_id": "fld-305",
+          "name": "ResolutionSteps",
+          "display_name": "Resolution Steps",
+          "field_type": "Text",
+          "is_required": false,
+          "is_read_only": false,
+          "is_hidden": false,
+          "is_system": false
+        },
+        {
+          "field_id": "fld-306",
+          "name": "Closed",
+          "display_name": "Closed",
+          "field_type": "Boolean",
+          "is_required": false,
+          "is_read_only": false,
+          "is_hidden": false,
+          "is_system": false
+        },
+        {
+          "field_id": "fld-307",
+          "name": "Created",
+          "display_name": "Created",
+          "field_type": "DateTime",
+          "is_required": false,
+          "is_read_only": true,
+          "is_hidden": false,
+          "is_system": true
+        },
+        {
+          "field_id": "fld-308",
+          "name": "Modified",
+          "display_name": "Modified",
+          "field_type": "DateTime",
+          "is_required": false,
+          "is_read_only": true,
+          "is_hidden": false,
+          "is_system": true
+        },
+        {
+          "field_id": "fld-309",
+          "name": "Author",
+          "display_name": "Created By",
+          "field_type": "Person",
+          "is_required": false,
+          "is_read_only": true,
+          "is_hidden": false,
+          "is_system": true
+        },
+        {
+          "field_id": "fld-310",
+          "name": "Editor",
+          "display_name": "Modified By",
+          "field_type": "Person",
+          "is_required": false,
+          "is_read_only": true,
+          "is_hidden": false,
+          "is_system": true
+        }
+      ]
+    }
+  ]
+}

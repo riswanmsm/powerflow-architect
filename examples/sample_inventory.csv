@@ -1,0 +1,44 @@
+List Name,List ID,Field Name,Field Display Name,Field ID,Field Type,Is Required,Is Read Only,Is Hidden,Is System
+Tasks,lst-tasks-111,ID,ID,fld-101,Number,False,True,False,True
+Tasks,lst-tasks-111,Title,Task Name,fld-102,Text,True,False,False,False
+Tasks,lst-tasks-111,Description,Description,fld-103,Text,False,False,False,False
+Tasks,lst-tasks-111,AssignedTo,Assigned To,fld-104,PersonMulti,False,False,False,False
+Tasks,lst-tasks-111,Status,Status,fld-105,Choice,True,False,False,False
+Tasks,lst-tasks-111,Priority,Priority,fld-106,Choice,False,False,False,False
+Tasks,lst-tasks-111,DueDate,Due Date,fld-107,DateTime,False,False,False,False
+Tasks,lst-tasks-111,Project,Related Project,fld-108,Lookup,False,False,False,False
+Tasks,lst-tasks-111,EstimatedHours,Estimated Hours,fld-109,Number,False,False,False,False
+Tasks,lst-tasks-111,PercentComplete,Percent Complete,fld-110,Number,False,False,False,False
+Tasks,lst-tasks-111,IsMilestone,Is Milestone,fld-111,Boolean,False,False,False,False
+Tasks,lst-tasks-111,TaskCost,Estimated Cost,fld-112,Currency,False,False,False,False
+Tasks,lst-tasks-111,Tags,Metadata Tags,fld-113,Managed Metadata,False,False,False,False
+Tasks,lst-tasks-111,TaskSummary,Summary,fld-114,Calculated,False,True,False,False
+Tasks,lst-tasks-111,Created,Created,fld-115,DateTime,False,True,False,True
+Tasks,lst-tasks-111,Modified,Modified,fld-116,DateTime,False,True,False,True
+Tasks,lst-tasks-111,Author,Created By,fld-117,Person,False,True,False,True
+Tasks,lst-tasks-111,Editor,Modified By,fld-118,Person,False,True,False,True
+Projects,lst-projects-222,ID,ID,fld-201,Number,False,True,False,True
+Projects,lst-projects-222,Title,Project Name,fld-202,Text,True,False,False,False
+Projects,lst-projects-222,ProjectCode,Project Code,fld-203,Text,True,False,False,False
+Projects,lst-projects-222,ClientName,Client Name,fld-204,Text,False,False,False,False
+Projects,lst-projects-222,StartDate,Start Date,fld-205,DateTime,False,False,False,False
+Projects,lst-projects-222,TargetEndDate,Target End Date,fld-206,DateTime,False,False,False,False
+Projects,lst-projects-222,ProjectManager,Project Manager,fld-207,Person,True,False,False,False
+Projects,lst-projects-222,Budget,Budget,fld-208,Currency,False,False,False,False
+Projects,lst-projects-222,Active,Active,fld-209,Boolean,False,False,False,False
+Projects,lst-projects-222,ProjectIcon,Project Icon,fld-210,Thumbnail,False,False,False,False
+Projects,lst-projects-222,OfficeLocation,Office Location,fld-211,Geolocation,False,False,False,False
+Projects,lst-projects-222,Created,Created,fld-212,DateTime,False,True,False,True
+Projects,lst-projects-222,Modified,Modified,fld-213,DateTime,False,True,False,True
+Projects,lst-projects-222,Author,Created By,fld-214,Person,False,True,False,True
+Projects,lst-projects-222,Editor,Modified By,fld-215,Person,False,True,False,True
+Issues,lst-issues-333,ID,ID,fld-301,Number,False,True,False,True
+Issues,lst-issues-333,Title,Issue Title,fld-302,Text,True,False,False,False
+Issues,lst-issues-333,RelatedTask,Related Task,fld-303,LookupMulti,False,False,False,False
+Issues,lst-issues-333,Severity,Severity,fld-304,Choice,True,False,False,False
+Issues,lst-issues-333,ResolutionSteps,Resolution Steps,fld-305,Text,False,False,False,False
+Issues,lst-issues-333,Closed,Closed,fld-306,Boolean,False,False,False,False
+Issues,lst-issues-333,Created,Created,fld-307,DateTime,False,True,False,True
+Issues,lst-issues-333,Modified,Modified,fld-308,DateTime,False,True,False,True
+Issues,lst-issues-333,Author,Created By,fld-309,Person,False,True,False,True
+Issues,lst-issues-333,Editor,Modified By,fld-310,Person,False,True,False,True
