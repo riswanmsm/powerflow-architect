@@ -12,7 +12,7 @@ from src.sharepoint import (
     Site,
     Exporter
 )
-from src.generator import ExpressionGenerator
+from src.generator import ExpressionGenerator, DeliveryReportGenerator
 from src.template_engine import TemplateEngine
 from src.flow_definition import FlowDefinitionEngine, FlowContext
 
@@ -216,6 +216,33 @@ def main():
         help="Path to output directory for flow definitions (default: flow_definitions)"
     )
 
+    # report sub-command
+    parser_report = subparsers.add_parser("report", help="Generate a delivery report comparing expected flows against an inventory")
+    parser_report.add_argument(
+        "--inventory",
+        type=str,
+        default="Inventory/inventory.json",
+        help="Path to input inventory.json file (default: Inventory/inventory.json)"
+    )
+    parser_report.add_argument(
+        "--templates",
+        type=str,
+        default="output/templates.json",
+        help="Path to templates.json file (default: output/templates.json)"
+    )
+    parser_report.add_argument(
+        "--existing-flows",
+        type=str,
+        default=None,
+        help="Path to external existing_flows.json file (optional)"
+    )
+    parser_report.add_argument(
+        "--output-dir",
+        type=str,
+        default="output",
+        help="Path to output directory for report files (default: output)"
+    )
+
     args = parser.parse_args()
 
     if args.command == "inventory":
@@ -247,6 +274,19 @@ def main():
             print(f"Flow definitions generated successfully. Outputs saved in '{args.output_dir}/'")
         except Exception as e:
             print(f"Error generating flows: {e}", file=sys.stderr)
+            sys.exit(1)
+    elif args.command == "report":
+        generator = DeliveryReportGenerator(
+            inventory_path=args.inventory,
+            templates_path=args.templates,
+            existing_flows_path=args.existing_flows
+        )
+        print(f"Generating delivery report...")
+        try:
+            generator.generate(output_dir=args.output_dir)
+            print(f"Delivery report generated successfully. Outputs saved in '{args.output_dir}/'")
+        except Exception as e:
+            print(f"Error generating report: {e}", file=sys.stderr)
             sys.exit(1)
 
 if __name__ == "__main__":

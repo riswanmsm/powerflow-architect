@@ -68,9 +68,18 @@ class ExpressionGenerator:
                 field_type_enum = ExpressionEngine.get_normalized_type(field)
                 norm_type = field_type_enum.value
                 
-                # Generate expression
-                expr = ExpressionEngine.generate(field, context)
-                list_exprs[field_name] = expr
+                # Generate expressions
+                import dataclasses
+                context_trigger = dataclasses.replace(context, use_trigger=True)
+                context_foreach = dataclasses.replace(context, use_trigger=False)
+                
+                expr_trigger = ExpressionEngine.generate(field, context_trigger)
+                expr_foreach = ExpressionEngine.generate(field, context_foreach)
+                
+                list_exprs[field_name] = {
+                    "direct_trigger": expr_trigger,
+                    "foreach": expr_foreach
+                }
                 
                 # Append flat representations
                 csv_rows.append([
@@ -78,14 +87,16 @@ class ExpressionGenerator:
                     field_name,
                     display_name,
                     norm_type,
-                    expr
+                    expr_trigger,
+                    expr_foreach
                 ])
                 
                 excel_rows.append([
                     field_name,
                     display_name,
                     norm_type,
-                    expr
+                    expr_trigger,
+                    expr_foreach
                 ])
 
             expressions_json_data[list_name] = list_exprs
@@ -103,7 +114,8 @@ class ExpressionGenerator:
             "Internal Field Name",
             "Display Name",
             "Normalized Field Type",
-            "Generated Expression"
+            "Direct Trigger Expression",
+            "Foreach Expression"
         ]
         with open(csv_path, "w", newline="", encoding="utf-8") as f:
             writer = csv.writer(f)
@@ -137,7 +149,13 @@ class ExpressionGenerator:
         
         align_left = Alignment(horizontal="left", vertical="center")
 
-        headers = ["Internal Name", "Display Name", "Normalized Type", "Copy Value"]
+        headers = [
+            "Internal Name", 
+            "Display Name", 
+            "Normalized Type", 
+            "Direct Trigger Expression", 
+            "Foreach Expression"
+        ]
 
         for list_name, rows in excel_data.items():
             sheet_title = clean_sheet_title(list_name)

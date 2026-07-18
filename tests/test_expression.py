@@ -68,3 +68,20 @@ def test_expression_context_customization():
     assert expr_pm == (
         "@join(xpath(xml(json(concat('{\"items\":{\"item\":',string(items('Apply_to_each_row_sync')?['Coordinators']),'}}'))),'//Claims/text()'),'; ')"
     )
+
+def test_expression_generation_direct_trigger():
+    context_trigger = ExpressionContext(use_trigger=True)
+    
+    # 1. Standard field
+    expr_text = generate_expression("Title", NormalizedFieldType.TEXT, context_trigger)
+    assert expr_text == "@triggerBody()?['Title']"
+    
+    # 2. Lookup field
+    expr_lookup = generate_expression("Project", NormalizedFieldType.LOOKUP, context_trigger)
+    assert expr_lookup == "@triggerBody()?['Project/Value']"
+    
+    # 3. ChoiceMulti field (nested XPath with triggerBody)
+    expr_cm = generate_expression("Tags", NormalizedFieldType.CHOICE_MULTI, context_trigger)
+    assert expr_cm == (
+        "@join(xpath(xml(json(concat('{\"items\":{\"item\":',string(triggerBody()?['Tags']),'}}'))),'//Value/text()'),' | ')"
+    )

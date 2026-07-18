@@ -59,9 +59,11 @@ def test_generator_runs_offline_and_creates_all_outputs(tmp_path, mock_inventory
     # Verify return dict
     assert "Projects" in res
     assert "Title" in res["Projects"]
-    assert res["Projects"]["Title"] == "@items('Apply_to_each_1')?['Title']"
+    assert res["Projects"]["Title"]["direct_trigger"] == "@triggerBody()?['Title']"
+    assert res["Projects"]["Title"]["foreach"] == "@items('Apply_to_each_1')?['Title']"
     assert "RelatedTask" in res["Projects"]
-    assert res["Projects"]["RelatedTask"] == "@items('Apply_to_each_1')?['RelatedTask/Value']"
+    assert res["Projects"]["RelatedTask"]["direct_trigger"] == "@triggerBody()?['RelatedTask/Value']"
+    assert res["Projects"]["RelatedTask"]["foreach"] == "@items('Apply_to_each_1')?['RelatedTask/Value']"
     
     # Verify outputs exist
     json_out = output_dir / "expressions.json"
@@ -83,7 +85,8 @@ def test_generator_runs_offline_and_creates_all_outputs(tmp_path, mock_inventory
         "Internal Field Name",
         "Display Name",
         "Normalized Field Type",
-        "Generated Expression"
+        "Direct Trigger Expression",
+        "Foreach Expression"
     ]
     with open(csv_out, "r", encoding="utf-8") as f:
         reader = csv.reader(f)
@@ -98,13 +101,15 @@ def test_generator_runs_offline_and_creates_all_outputs(tmp_path, mock_inventory
         assert rows[0][1] == "Title"
         assert rows[0][2] == "Project Name"
         assert rows[0][3] == "Text"
-        assert rows[0][4] == "@items('Apply_to_each_1')?['Title']"
+        assert rows[0][4] == "@triggerBody()?['Title']"
+        assert rows[0][5] == "@items('Apply_to_each_1')?['Title']"
         
         # Verify ChoiceMulti row (xpath structure)
         assert rows[1][0] == "Projects"
         assert rows[1][1] == "Tags"
         assert rows[1][3] == "ChoiceMulti"
         assert "xpath" in rows[1][4]
+        assert "xpath" in rows[1][5]
         
     # 3. Verify Excel workbook worksheets & structure
     wb = openpyxl.load_workbook(xlsx_out)
@@ -118,13 +123,15 @@ def test_generator_runs_offline_and_creates_all_outputs(tmp_path, mock_inventory
     assert ws.cell(row=1, column=1).value == "Internal Name"
     assert ws.cell(row=1, column=2).value == "Display Name"
     assert ws.cell(row=1, column=3).value == "Normalized Type"
-    assert ws.cell(row=1, column=4).value == "Copy Value"
+    assert ws.cell(row=1, column=4).value == "Direct Trigger Expression"
+    assert ws.cell(row=1, column=5).value == "Foreach Expression"
     
     # Check Title row cells
     assert ws.cell(row=2, column=1).value == "Title"
     assert ws.cell(row=2, column=2).value == "Project Name"
     assert ws.cell(row=2, column=3).value == "Text"
-    assert ws.cell(row=2, column=4).value == "@items('Apply_to_each_1')?['Title']"
+    assert ws.cell(row=2, column=4).value == "@triggerBody()?['Title']"
+    assert ws.cell(row=2, column=5).value == "@items('Apply_to_each_1')?['Title']"
 
 def test_generator_with_custom_context(tmp_path, mock_inventory_file):
     output_dir = tmp_path / "output"
@@ -142,7 +149,9 @@ def test_generator_with_custom_context(tmp_path, mock_inventory_file):
     res = generator.generate(custom_context)
     
     # Verify Title
-    assert res["Projects"]["Title"] == "@items('For_each_item')?['Title']"
+    assert res["Projects"]["Title"]["direct_trigger"] == "@triggerBody()?['Title']"
+    assert res["Projects"]["Title"]["foreach"] == "@items('For_each_item')?['Title']"
     
     # Verify Lookup uses the custom lookup_property Title
-    assert res["Projects"]["RelatedTask"] == "@items('For_each_item')?['RelatedTask/Title']"
+    assert res["Projects"]["RelatedTask"]["direct_trigger"] == "@triggerBody()?['RelatedTask/Title']"
+    assert res["Projects"]["RelatedTask"]["foreach"] == "@items('For_each_item')?['RelatedTask/Title']"
