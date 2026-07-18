@@ -9,6 +9,10 @@ class ExpressionContext:
     delimiter: str = " | "
     lookup_property: str = "Value"
     person_property: str = "Email"
+    use_trigger: bool = False
+
+    def get_base_source(self) -> str:
+        return "triggerBody()" if self.use_trigger else f"items('{self.loop_name}')"
 
 class ExpressionStrategy(ABC):
     @abstractmethod
@@ -17,49 +21,49 @@ class ExpressionStrategy(ABC):
 
 class StandardStrategy(ExpressionStrategy):
     def generate(self, field_name: str, context: ExpressionContext) -> str:
-        return f"@items('{context.loop_name}')?['{field_name}']"
+        return f"@{context.get_base_source()}?['{field_name}']"
 
 class LookupStrategy(ExpressionStrategy):
     def generate(self, field_name: str, context: ExpressionContext) -> str:
-        return f"@items('{context.loop_name}')?['{field_name}/{context.lookup_property}']"
+        return f"@{context.get_base_source()}?['{field_name}/{context.lookup_property}']"
 
 class LookupMultiStrategy(ExpressionStrategy):
     def generate(self, field_name: str, context: ExpressionContext) -> str:
         return (
-            f"@join(xpath(xml(json(concat('{{\"items\":{{\"item\":',string(items('{context.loop_name}')?['{field_name}']),'}}}}'))),"
+            f"@join(xpath(xml(json(concat('{{\"items\":{{\"item\":',string({context.get_base_source()}?['{field_name}']),'}}}}'))),"
             f"'//{context.lookup_property}/text()'),'{context.delimiter}')"
         )
 
 class PersonStrategy(ExpressionStrategy):
     def generate(self, field_name: str, context: ExpressionContext) -> str:
-        return f"@items('{context.loop_name}')?['{field_name}/{context.person_property}']"
+        return f"@{context.get_base_source()}?['{field_name}/{context.person_property}']"
 
 class PersonMultiStrategy(ExpressionStrategy):
     def generate(self, field_name: str, context: ExpressionContext) -> str:
         return (
-            f"@join(xpath(xml(json(concat('{{\"items\":{{\"item\":',string(items('{context.loop_name}')?['{field_name}']),'}}}}'))),"
+            f"@join(xpath(xml(json(concat('{{\"items\":{{\"item\":',string({context.get_base_source()}?['{field_name}']),'}}}}'))),"
             f"'//{context.person_property}/text()'),'{context.delimiter}')"
         )
 
 class ChoiceStrategy(ExpressionStrategy):
     def generate(self, field_name: str, context: ExpressionContext) -> str:
-        return f"@items('{context.loop_name}')?['{field_name}/Value']"
+        return f"@{context.get_base_source()}?['{field_name}/Value']"
 
 class ChoiceMultiStrategy(ExpressionStrategy):
     def generate(self, field_name: str, context: ExpressionContext) -> str:
         return (
-            f"@join(xpath(xml(json(concat('{{\"items\":{{\"item\":',string(items('{context.loop_name}')?['{field_name}']),'}}}}'))),"
+            f"@join(xpath(xml(json(concat('{{\"items\":{{\"item\":',string({context.get_base_source()}?['{field_name}']),'}}}}'))),"
             f"'//Value/text()'),'{context.delimiter}')"
         )
 
 class ManagedMetadataStrategy(ExpressionStrategy):
     def generate(self, field_name: str, context: ExpressionContext) -> str:
-        return f"@items('{context.loop_name}')?['{field_name}/Label']"
+        return f"@{context.get_base_source()}?['{field_name}/Label']"
 
 class ManagedMetadataMultiStrategy(ExpressionStrategy):
     def generate(self, field_name: str, context: ExpressionContext) -> str:
         return (
-            f"@join(xpath(xml(json(concat('{{\"items\":{{\"item\":',string(items('{context.loop_name}')?['{field_name}']),'}}}}'))),"
+            f"@join(xpath(xml(json(concat('{{\"items\":{{\"item\":',string({context.get_base_source()}?['{field_name}']),'}}}}'))),"
             f"'//Label/text()'),'{context.delimiter}')"
         )
 
