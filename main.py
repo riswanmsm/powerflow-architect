@@ -15,6 +15,7 @@ from src.sharepoint import (
 from src.generator import ExpressionGenerator, DeliveryReportGenerator
 from src.template_engine import TemplateEngine
 from src.flow_definition import FlowDefinitionEngine, FlowContext
+from src.automation import register_subcommand as register_automation_subcommand, run_automation
 
 def load_config() -> str:
     """Load default site URL from config.yaml if present."""
@@ -243,6 +244,9 @@ def main():
         help="Path to output directory for report files (default: output)"
     )
 
+    # automate sub-command
+    register_automation_subcommand(subparsers)
+
     args = parser.parse_args()
 
     if args.command == "inventory":
@@ -288,6 +292,8 @@ def main():
         except Exception as e:
             print(f"Error generating report: {e}", file=sys.stderr)
             sys.exit(1)
+    elif args.command == "automate":
+        run_automation(args)
 
 if __name__ == "__main__":
     main()
