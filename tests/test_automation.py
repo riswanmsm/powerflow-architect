@@ -284,6 +284,12 @@ def test_auto_detect_mode_and_extra_fields():
         
         assert success is True
         
+        # Extract values filled via mock_input.evaluate
+        for call in mock_input.evaluate.call_args_list:
+            args = call[0]
+            if len(args) > 1:
+                filled_values.append(args[1])
+                
         # Verify direct_trigger values were filled instead of foreach:
         assert "@triggerBody()?['Title']" in filled_values
         assert "@triggerBody()?['ID']" in filled_values

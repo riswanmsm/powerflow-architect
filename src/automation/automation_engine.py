@@ -753,41 +753,45 @@ class PowerAutomateAutomationEngine:
                     # Focus input box, clear existing text, and fill raw expression directly
                     try:
                         input_box.scroll_into_view_if_needed()
-                        input_box.click()
-                        page.wait_for_timeout(300)
+                        page.wait_for_timeout(50)
                         
-                        # Clear existing values robustly
-                        # Method A: Select all (Command+A/Ctrl+A) and delete to clear dynamic content tags
+                        # Option 2: Select all and delete via instant browser command
                         try:
-                            input_box.focus()
-                            page.wait_for_timeout(200)
-                            input_box.press("Meta+A")
-                            input_box.press("Backspace")
+                            input_box.evaluate("el => { el.focus(); document.execCommand('selectAll', false, null); document.execCommand('delete', false, null); }")
                         except Exception:
-                            pass
-                            
-                        try:
-                            input_box.press("Control+A")
-                            input_box.press("Backspace")
-                        except Exception:
-                            pass
-                            
-                        # Method B: Direct blank fill fallback
-                        try:
-                            input_box.fill("")
-                        except Exception:
-                            pass
+                            # Fallback clearing
+                            try:
+                                input_box.focus()
+                                input_box.press("Meta+A")
+                                input_box.press("Backspace")
+                            except Exception:
+                                pass
+                                
+                            try:
+                                input_box.press("Control+A")
+                                input_box.press("Backspace")
+                            except Exception:
+                                pass
+                                
+                            try:
+                                input_box.fill("")
+                            except Exception:
+                                pass
                         
-                        page.wait_for_timeout(300)
+                        page.wait_for_timeout(50)
                         
-                        # Write the raw expression directly (with the @ symbol)
+                        # Option 3: Paste expression instantly via insertText browser command
                         print(f"  Filling raw expression directly: {expr_val}")
                         try:
-                            input_box.fill(expr_val)
+                            input_box.evaluate("(el, val) => { el.focus(); document.execCommand('insertText', false, val); }", expr_val)
                         except Exception:
-                            input_box.type(expr_val)
-                            
-                        page.wait_for_timeout(500)
+                            # Fallback to direct fill/type
+                            try:
+                                input_box.fill(expr_val)
+                            except Exception:
+                                input_box.type(expr_val)
+                                
+                        page.wait_for_timeout(50)
                         print(f"  [OK] Successfully filled field '{display_name}'.")
                         fields_populated += 1
                     except Exception as e:
