@@ -61,14 +61,26 @@ def register_subcommand(subparsers):
 
 def run_automation(args):
     """Execution wrapper invoked when the 'automate' command is run."""
-    # Retrieve arguments, prompting interactively if omitted on command line
-    flow_url = args.flow_url
+    import json
+    
+    # Load JSON configuration if present
+    config_data = {}
+    config_path = Path("config.json")
+    if config_path.exists():
+        try:
+            with open(config_path, "r", encoding="utf-8") as f:
+                config_data = json.load(f)
+        except Exception:
+            pass
+
+    # Retrieve arguments, prompting interactively if omitted on command line and JSON config
+    flow_url = args.flow_url or config_data.get("flow_url")
     if not flow_url:
         flow_url = input("Please enter the Flow Edit URL: ").strip()
         while not flow_url:
             flow_url = input("Flow URL cannot be empty. Please enter the Flow Edit URL: ").strip()
 
-    list_name = args.list_name
+    list_name = args.list_name or config_data.get("list_name")
     if not list_name:
         list_name = input("Please enter the SharePoint List Name (e.g. LIST_Environments): ").strip()
         while not list_name:

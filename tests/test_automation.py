@@ -1,7 +1,7 @@
 import csv
 import pytest
 from pathlib import Path
-from unittest.mock import MagicMock, patch
+from unittest.mock import MagicMock, patch, mock_open
 
 from src.automation.automation_engine import normalize_expression, PowerAutomateAutomationEngine
 from src.automation.cli import register_subcommand
@@ -99,6 +99,46 @@ def test_run_automation_interactive_prompts():
         mock_engine.run.assert_called_once_with(
             flow_url="http://prompt-flow.com",
             list_name="LIST_Prompted",
+            mode="foreach"
+        )
+        mock_exit.assert_called_once_with(0)
+
+def test_run_automation_config_file():
+    """Verifies that run_automation reads flow-url and list-name from config.json if omitted on CLI."""
+    from src.automation.cli import run_automation
+    import argparse
+    import json
+    from pathlib import Path
+    
+    parser = argparse.ArgumentParser()
+    subparsers = parser.add_subparsers(dest="command")
+    register_subcommand(subparsers)
+    args = parser.parse_args(["automate"])
+    
+    config_data = {
+        "flow_url": "http://config-flow.com",
+        "list_name": "LIST_ConfigJson"
+    }
+    
+    with patch.object(Path, "exists", return_value=True), \
+         patch("builtins.open", mock_open(read_data=json.dumps(config_data))), \
+         patch("builtins.input") as mock_input, \
+         patch("src.automation.automation_engine.PowerAutomateAutomationEngine") as mock_engine_class, \
+         patch("sys.exit") as mock_exit:
+         
+        mock_engine = mock_engine_class.return_value
+        mock_engine.run.return_value = True
+        
+        run_automation(args)
+        
+        # Verify no interactive prompts were called since config.json was used
+        mock_input.assert_not_called()
+        
+        # Verify engine was initialized and run was called with config.json values
+        mock_engine_class.assert_called_once()
+        mock_engine.run.assert_called_once_with(
+            flow_url="http://config-flow.com",
+            list_name="LIST_ConfigJson",
             mode="foreach"
         )
         mock_exit.assert_called_once_with(0)
