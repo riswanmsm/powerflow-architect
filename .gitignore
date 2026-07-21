@@ -31,3 +31,8 @@ flow_definitions/*
 !flow_definitions/.gitkeep
 output/*
 !output/.gitkeep
+
+# Sensitive config files
+config.json
+config.yaml
+config/
